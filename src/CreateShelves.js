@@ -48,16 +48,19 @@ class CreateShelves extends Component {
 		<Book 
 			shelf = {this.props.allBooks.filter(book => book.shelf === "currentlyReading")}
 			moveBook={moveBook}
+			row = "Currently Reading"
 		/>	
          
         <Book
         	shelf={this.props.allBooks.filter(book => book.shelf === "wantToRead")}
         	moveBook={moveBook}
+        	row = "Want To Read"
         />
 
         <Book
         	shelf={this.props.allBooks.filter(book => book.shelf === "read")}
         	moveBook={moveBook}
+        	row = "Read"
         />
 
           {/*Open search section*/}

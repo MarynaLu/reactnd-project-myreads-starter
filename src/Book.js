@@ -11,14 +11,15 @@ class Book extends Component {
 
 	
 	render () {
-		const { moveBook } = this.props
+		
+		const { moveBook, row } = this.props
 
 		return (
 			 /* Currently reading section*/
             <div className="list-books-content">
               <div>
                 <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
+                  <h2 className="bookshelf-title">{row}</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
                       
@@ -28,7 +29,7 @@ class Book extends Component {
 									<div className="book-top">
 										<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
 											<div className="book-shelf-changer">
-												<select onChange={(event) => moveBook(book.id, event.target.value)}>
+												<select onChange={(event) => moveBook(book, event.target.value)}>
 					                                <option value="move" disabled>Move to...</option>
 					                                <option value="currentlyReading">Currently Reading</option>
 					                                <option value="wantToRead">Want to Read</option>

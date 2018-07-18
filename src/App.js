@@ -6,7 +6,15 @@ import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
+
+
 class BooksApp extends React.Component { 
+   constructor(props){
+        super(props);
+
+        this.moveBook = this.moveBook.bind(this);
+    }
+
   state = {
     /**
        * TODO: Instead of using this state variable to keep track of which page
@@ -29,9 +37,19 @@ class BooksApp extends React.Component {
 
 
     moveBook(book, newSection){
-         this.setState(state => ({
-              books: state.books.filter(b => b.id !== book)
-          }))
+        
+        if (this.state.books){
+          BooksAPI.update(book, newSection).then(() => {
+              console.log(newSection)
+              book.shelf = newSection;
+              this.setState(state => ({
+                books: state.books.filter(b => b.id !== book.id).concat([ book ])
+            }))
+          })
+        }
+
+        console.log(this.state.books)
+
       }
   
    
