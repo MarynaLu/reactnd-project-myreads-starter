@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 //import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
+import Search from './Search'
 //import sortBy from 'sort-by'
 
 class Book extends Component {
@@ -29,7 +30,7 @@ class Book extends Component {
 									<div className="book-top">
 										<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
 											<div className="book-shelf-changer">
-												<select onChange={(event) => moveBook(book, event.target.value)}>
+												<select value={this.props.selectValue} onChange={(event) => moveBook(book, event.target.value)}>
 					                                <option value="move" disabled>Move to...</option>
 					                                <option value="currentlyReading">Currently Reading</option>
 					                                <option value="wantToRead">Want to Read</option>

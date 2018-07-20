@@ -2,8 +2,10 @@ import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 import CreateShelves from './CreateShelves'
+import { Route } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from './BooksAPI'
+import Search from './Search'
 import './App.css'
 
 
@@ -13,17 +15,12 @@ class BooksApp extends React.Component {
         super(props);
 
         this.moveBook = this.moveBook.bind(this);
+        this.searchBooks = this.searchBooks.bind(this);
     }
 
   state = {
-    /**
-       * TODO: Instead of using this state variable to keep track of which page
-       * we're on, use the URL in the browser's address bar. This will ensure that
-       * users can use the browser's back and forward buttons to navigate between
-       * pages, as well as provide a good URL they can bookmark and share.
-       */
-      showSearchPage: false,
-      books: []
+      books: [],
+      searchedBooks: []
     }
 
 
@@ -40,7 +37,6 @@ class BooksApp extends React.Component {
         
         if (this.state.books){
           BooksAPI.update(book, newSection).then(() => {
-              console.log(newSection)
               book.shelf = newSection;
               this.setState(state => ({
                 books: state.books.filter(b => b.id !== book.id).concat([ book ])
@@ -52,15 +48,35 @@ class BooksApp extends React.Component {
 
       }
   
+    searchBooks(query){
+       BooksAPI.search(query).then(data => {
+          this.setState({
+            searchedBooks: data
+          });
+       });
+    }
+
    
   render(){
     return (
       <div>
-        <CreateShelves 
-          moveBook = {this.moveBook}
-          searchPage = {this.state.showSearchPage}
-          allBooks = {this.state.books}
-        />
+
+        <Route path="/" exact render={() => (
+            <CreateShelves 
+              moveBook = {this.moveBook}
+              allBooks = {this.state.books}
+            />
+        )}/>
+        
+
+        <Route path="/search" exact render={() => (
+            <Search 
+              searchedBooks = {this.state.searchedBooks}
+              searchBooks = {this.searchBooks}
+              allBooks = {this.state.books}
+             />
+        )}/>
+
       </div>
     )
   }

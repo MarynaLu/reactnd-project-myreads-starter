@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 //import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
+import { Link } from 'react-router-dom'
 import Book from './Book'
+import Search from './Search'
 //import sortBy from 'sort-by'
 
 class CreateShelves extends Component {
@@ -49,23 +51,29 @@ class CreateShelves extends Component {
 			shelf = {this.props.allBooks.filter(book => book.shelf === "currentlyReading")}
 			moveBook={moveBook}
 			row = "Currently Reading"
+			selectValue = "currentlyReading"
 		/>	
          
         <Book
         	shelf={this.props.allBooks.filter(book => book.shelf === "wantToRead")}
         	moveBook={moveBook}
         	row = "Want To Read"
+        	selectValue = "wantToRead"
         />
 
         <Book
         	shelf={this.props.allBooks.filter(book => book.shelf === "read")}
         	moveBook={moveBook}
         	row = "Read"
+        	selectValue = "read"
         />
+		
 
           {/*Open search section*/}
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+              <Link
+              	to="/search">Add a book
+              </Link>
             </div>
           </div>
         )}
