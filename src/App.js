@@ -15,12 +15,10 @@ class BooksApp extends React.Component {
         super(props);
 
         this.moveBook = this.moveBook.bind(this);
-        this.searchBooks = this.searchBooks.bind(this);
     }
 
   state = {
       books: [],
-      searchedBooks: []
     }
 
 
@@ -44,17 +42,12 @@ class BooksApp extends React.Component {
           })
         }
 
+        
         console.log(this.state.books)
 
       }
   
-    searchBooks(query){
-       BooksAPI.search(query).then(data => {
-          this.setState({
-            searchedBooks: data
-          });
-       });
-    }
+   
 
    
   render(){
@@ -71,9 +64,8 @@ class BooksApp extends React.Component {
 
         <Route path="/search" exact render={() => (
             <Search 
-              searchedBooks = {this.state.searchedBooks}
-              searchBooks = {this.searchBooks}
               allBooks = {this.state.books}
+              moveBook = {this.moveBook}
              />
         )}/>
 
