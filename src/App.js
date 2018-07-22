@@ -7,7 +7,7 @@ import Book from './Book'
 import * as BooksAPI from './BooksAPI'
 import Search from './Search'
 import './App.css'
-
+import PropTypes from 'prop-types';
 
 
 class BooksApp extends React.Component { 
@@ -100,6 +100,7 @@ class BooksApp extends React.Component {
               moveBook = {this.moveBook}
               searchBooks = {this.searchBooks}
               searchedBooks = {this.state.searchedBooks}
+              
               /*update = {this.updateSearchShelf}*/
              />
         )}/>

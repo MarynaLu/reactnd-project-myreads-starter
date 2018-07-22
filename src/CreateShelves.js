@@ -82,4 +82,8 @@ class CreateShelves extends Component {
   }
 }
 
+CreateShelves.propTypes = {
+  moveBook: PropTypes.func.isRequired
+}
+
 export default CreateShelves

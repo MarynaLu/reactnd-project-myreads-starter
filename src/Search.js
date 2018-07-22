@@ -6,6 +6,7 @@ import Book from './Book'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
+import PropTypes from 'prop-types';
 
 class Search extends React.Component {
 	state = {
@@ -23,11 +24,19 @@ class Search extends React.Component {
 	render() {
 		const { moveBook } = this.props
 		const { query } = this.state
+
 	
 		let showingSearchedBooks
 
 		if (query){
 			showingSearchedBooks = this.props.searchedBooks
+
+			showingSearchedBooks.forEach(function(book) {
+				if(book.imageLinks === undefined){
+					book.imageLinks = 'https://upload.wikimedia.org/wikipedia/commons/b/b3/Solid_gray.png'
+				}
+			})
+
 		} else {
 			showingSearchedBooks = []
 		}
@@ -54,7 +63,7 @@ class Search extends React.Component {
 					                      		<li key={book.id}>
 													<div className="book">
 														<div className="book-top">
-															<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail}})` }}></div>
+															<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>
 																<div className="book-shelf-changer">
 																	<select value={book.shelf} onChange={(event) => moveBook(book, event.target.value, showingSearchedBooks)}>
 										                                <option value="move" disabled>Move to...</option>
@@ -78,6 +87,11 @@ class Search extends React.Component {
 			</div>
 		)
 	}
+}
+
+Search.propTypes = {
+	query: PropTypes.string.isRequired,
+	moveBook: PropTypes.func.isRequired
 }
 
 export default Search

@@ -12,7 +12,8 @@ This is the #7 project of the Udacity FEND Nanodegree. This app allows one to se
 ```$ npm install```
 4. Run the application  
 ```$ npm start```
-  After this, you should see a new browser tab/window with the application running.
+
+After this, you should see a new browser tab/window with the application running.
 
 
 ## Important

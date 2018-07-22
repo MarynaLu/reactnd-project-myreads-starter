@@ -14,6 +14,7 @@ class Book extends Component {
 	render () {
 		
 		const { moveBook, row } = this.props
+		
 
 		return (
 			 /* Currently reading section*/
@@ -51,6 +52,11 @@ class Book extends Component {
             </div>
 		)
 	}
+}
+
+Book.propTypes = {
+  moveBook: PropTypes.func.isRequired,
+  row: PropTypes.string.isRequired
 }
 
 export default Book
