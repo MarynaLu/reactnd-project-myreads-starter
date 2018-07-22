@@ -15,10 +15,13 @@ class BooksApp extends React.Component {
         super(props);
 
         this.moveBook = this.moveBook.bind(this);
+        this.searchBooks = this.searchBooks.bind(this);
     }
 
   state = {
       books: [],
+      searchedBooks: [],
+      allowedQueries: ['Android', 'Swimming', 'Art', 'Artificial Intelligence', 'Astronomy', 'Austen', 'Baseball', 'Basketball', 'Bhagat', 'Biography', 'Brief', 'Business', 'Camus', 'Cervantes', 'Christie', 'Classics', 'Comics', 'Cook', 'Cricket', 'Cycling', 'Desai', 'Design', 'Development', 'Digital Marketing', 'Drama', 'Drawing', 'Dumas', 'Education', 'Everything', 'Fantasy', 'Film', 'Finance', 'First', 'Fitness', 'Football', 'Future', 'Games', 'Gandhi', 'Homer', 'Horror', 'Hugo', 'Ibsen', 'Journey', 'Kafka', 'King', 'Lahiri', 'Larsson', 'Learn', 'Literary Fiction', 'Make', 'Manage', 'Marquez', 'Money', 'Mystery', 'Negotiate', 'Painting', 'Philosophy', 'Photography', 'Poetry', 'Production', 'Programming', 'React', 'Redux', 'River', 'Robotics', 'Rowling', 'Satire', 'Science Fiction', 'Shakespeare', 'Singh', 'Tale', 'Thrun', 'Time', 'Tolstoy', 'Travel', 'Ultimate', 'Virtual Reality', 'Web Development', 'iOS']
     }
 
 
@@ -30,6 +33,30 @@ class BooksApp extends React.Component {
     });
   }
 
+  searchBooks(query){
+    if(this.state.allowedQueries.indexOf(query) > 1) {
+            BooksAPI.search(query).then(data => {
+                 if(data.length){
+                     data.forEach((book, index) => {
+                     let myBook = this.state.books.find((b) => b.id === book.id);
+                      book.shelf = myBook ? myBook.shelf : 'none';
+                      data[index] = book;
+                  });
+
+                  this.setState({
+                    searchedBooks: data
+                  });
+                }
+
+              });
+
+            } else {
+
+            this.setState({
+                searchedBooks: []
+            });
+          }
+        };
 
     moveBook(book, newSection){
         
@@ -41,14 +68,19 @@ class BooksApp extends React.Component {
             }))
           })
         }
+        }
+      
+   /* addShelves() {
+      this.state.searchedBooks.forEach(function(book, index){
+        if(this.state.books.indexOf(book) > 0){
+          this.setState(state => ({
+            books: 
+          }))
 
-        
-        console.log(this.state.books)
-
-      }
-  
-   
-
+          this.state.searchedBooks[index].shelf = this.state.books.find(book).shelf
+        }
+      })
+    }*/
    
   render(){
     return (
@@ -66,6 +98,9 @@ class BooksApp extends React.Component {
             <Search 
               allBooks = {this.state.books}
               moveBook = {this.moveBook}
+              searchBooks = {this.searchBooks}
+              searchedBooks = {this.state.searchedBooks}
+              /*update = {this.updateSearchShelf}*/
              />
         )}/>
 
